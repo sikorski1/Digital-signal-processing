@@ -35,7 +35,19 @@ hold on
 plot(dt2*n2, y2, "g-o");
 plot(dt3*n3, y3, "r-o");
 plot(dt4*n4, y4, "k-o");
-
+title("10kHz - b, 51Hz - g, 50Hz - r, 49Hz - k")
+t1 = 0:1/26:1;
+t2 = 0:1/25:1;
+t3 = 0:1/24:1;
+y5 = A*sin(2*pi*50*t1);
+y6 = A*sin(2*pi*50*t2);
+y7 = A*sin(2*pi*50*t3);
+figure
+hold on                                                        
+plot(t1, y5, "g-o")
+plot(t2, y6, "r-o")
+plot(t3, y7, "k-o")
+title("26Hz - g, 25Hz - r, 24Hz - k")
 %C
 
 fs = 100;
