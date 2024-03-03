@@ -11,9 +11,14 @@ for k = 0:N-1
     else
         sk = sqrt(2/N);     % Wartość sk dla k != 0
     end
-    wk = sqrt(2/N)*cos(pi*k/N*(n+0.5));
+    wk = sk*cos(pi*k/N*(n+0.5));
     
     A(k+1, :) = wk;
 end
+S = A';
+I = S*A;
+x = randn(20);
+X = A*x';
 
-check = A * A';
+xs=S*X
+xs = xs'
