@@ -16,4 +16,4 @@ for k = 0:N-1
     A(k+1, :) = wk;
 end
 
-check = A * A';
+check = A*A';
