@@ -1,5 +1,7 @@
+clear all;
+close all;
 fs1 = 10000; %czestotliwosc probkowania
-t1 = 0:1/fs1:1;
+t1 = 0:1/fs1:1-1/fs1;
 fn = 50; %czestotliwosc nosna
 fm = 1; %czestotliwosc modulujaca
 df = 5; %glebokosc modulacji
@@ -10,17 +12,19 @@ hold on
 plot(t1, y1, "r-")
 
 fs2 = 25;
-t2= 0:1/fs2:1;
+t2= 0:1/fs2:1-1/fs2;
 
 y2 = sin(2*pi*fn*t2+df*sin(2*pi*fm*t2));
 figure
+plot(t1, y1, "b-")
+hold on
 plot(t2, y2, "r-")
 
 % Generowanie widma gęstości mocy
-[f1,pxx1] = pwelch(y1);
-[f2,pxx2] = pwelch(y2);
+pxx1 = pwelch(y1);
+pxx2 = pwelch(y2);
 % Wyświetlenie widma
 figure
-plot(f1, 10*log10(pxx1), "b-"); % wykres w skali logarytmicznej
-hold on
-plot(f2, 10*log10(pxx2), "r-")
+plot(pxx1, "b-"); 
+figure
+plot(pxx2, "r-")
