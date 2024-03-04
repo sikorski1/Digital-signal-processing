@@ -3,14 +3,20 @@ function Rxy = my_cross_correlation(x, y)
     Nx = length(x);
     Ny = length(y);
     
-    % Inicjalizacja wynikowej macierzy korelacji wzajemnej
-    Rxy = zeros(1, Nx + Ny - 1);
+    % Wypełnienie macierzy y zerami na początku
+    y2 = zeros(1, Nx - Ny);
+    y2 = [y2, y];
+    Ny2 = length(y2);
     
-    % Obliczenie korelacji wzajemnej
-    for n = 1:Nx + Ny - 1
-        start = max(1, n - Ny + 1);
-        stop = min(n, Nx);
-        Rxy(n) = sum(x(start:stop) .* y(start - n + stop:stop - n + start));
+    % Inicjalizacja wynikowej macierzy korelacji wzajemnej
+    Rxy = zeros(1, Nx + Ny2 - 1);
+    
+    % Obliczenie korelacji wzajemnej - własna implementacja
+    for n = 1:Nx + Ny2 - 1
+        if n <= Nx
+            Rxy(n) = sum(x(1:n) .* y2(Ny2-n+1:Ny2));
+        else
+            
+            Rxy(n) = sum(x(n-Nx+1:Nx) .* y2(1:Ny2+Ny2-n));
     end
 end
-
