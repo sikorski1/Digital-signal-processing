@@ -1,4 +1,6 @@
 %A
+clear all;
+close all;
 n1 = 0:1000;
 n2 = 0:50;
 n3 = 0:20;
@@ -62,7 +64,7 @@ figure;
 for i = 0:5:300
     plot(t, sin(2*pi*i*t))
     title(counter, "sin");
-    pause();
+    
     counter = counter + 1;
     if mod(i,100) == 5
        freq1 = [freq1, i]; 
@@ -85,39 +87,40 @@ end
 title("95, 195, 295, sin")
 
 figure 
-plot(t, sin(2*pi*freq1(2)*t), "g-x")
+plot(t, sin(2*pi*freq1(2)*t), "g--")
 hold on
-plot(t, sin(2*pi*freq2(1)*t), "b-x")
+plot(t, sin(2*pi*freq2(1)*t), "b--")
 title("95, 105 sin")
-
+freq3 = [];
+freq4 = [];
 figure;
 for i = 0:5:300
     plot(t, cos(2*pi*i*t))
     title(counter, "cos");
-    pause();
+    
     counter = counter + 1;
     if mod(i,100) == 5
-       freq1 = [freq1, i]; 
+       freq3 = [freq3, i]; 
     
     elseif mod(i, 100) == 95
-        freq2 = [freq2, i];
+        freq4 = [freq4, i];
     end
 end  
 figure
 for i = 1:3
-    plot(t, cos(2*pi*freq1(i)*t), color(i))
+    plot(t, cos(2*pi*freq3(i)*t), color(i))
     hold on
 end
 title("5, 105, 205, cos")
 figure
 for i = 1:3
-    plot(t, cos(2*pi*freq2(i)*t), color(i))
+    plot(t, cos(2*pi*freq4(i)*t), color(i))
     hold on
 end
 title("95, 195, 295, cos")
 
 figure 
-plot(t, cos(2*pi*freq1(2)*t), "g-x")
+plot(t, cos(2*pi*freq3(2)*t), "g--")
 hold on
-plot(t, cos(2*pi*freq2(1)*t), "b-x")
-title("95, 105, sin")
+plot(t, cos(2*pi*freq4(1)*t), "b--")
+title("95, 105, cos")
