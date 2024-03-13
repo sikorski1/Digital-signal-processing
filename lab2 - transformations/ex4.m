@@ -12,7 +12,7 @@ n = 0:N-1;
 A = zeros(N, N);
 for k = 0:N-1
     if k == 0
-        wk = sqrt(1/N);     % Wartość sk dla k = 0
+        wk = sqrt(1/N)*cos(pi*k/N*(n+0.5));     % Wartość sk dla k = 0
     else
         wk = sqrt(2/N)*cos(pi*k/N*(n+0.5));     % Wartość sk dla k != 0
     end

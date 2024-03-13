@@ -4,7 +4,7 @@ N = 100;
 k = 0:N-1;
 n = 0:N-1;
 fs = 1000;
-t = 0:1/1000:0.1-1/1000;
+t = 1/1000:1/1000:0.1;
 f1 = 50;
 f2 = 100;
 f3 = 150;
@@ -12,31 +12,36 @@ A1 = 50;
 A2 = 100;
 A3 = 150;
 x = A1*sin(2*pi*f1*t)+A2*sin(2*pi*f2*t)+A3*sin(2*pi*f3*t);
+plot(x)
 A = zeros(N, N);
+%A = sqrt(2/N) * cos( pi/N * (k+0.5)' * (n+0.5) );
+
 for k = 0:N-1
     if k == 0
-        wk = sqrt(1/N);     % Wartość sk dla k = 0
+        wk = sqrt(1/N)*cos(pi*k/N*(n+0.5));     % Wartość sk dla k = 0
     else
         wk = sqrt(2/N)*cos(pi*k/N*(n+0.5));     % Wartość sk dla k != 0
     end
   
     A(k+1, :) = wk;
 end
+
 S = A';
 counter = 1;
 for i = 1:N
+    subplot(211)
     plot(1:N, A(i, :), "b-");
-    hold on
-    plot(1:N, S(:, i), "r--");
+    subplot(212)
+    plot(1:N, S(:, i), "r-");
     title(counter);
     counter = counter + 1;
-    %pause()
+    %pause();
     clf;
 end
 
 y = A*x';
 figure;
-f=(0:N-1)*fs/(2*N);
+f=(1:N)*fs/(2*N);
 stem(f, abs(y))
 xs = S*y;
 figure
