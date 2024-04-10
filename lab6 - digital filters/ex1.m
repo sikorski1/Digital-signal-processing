@@ -80,8 +80,8 @@ Y2log = 20*log10(abs(Y2));
 
 figure
 hold on
-plot(f, Y1log(1:length(f)), "bo")
-plot(f, Y2log(1:length(f)), "rx")
+plot(f, Y1log(1:length(f)), "b")
+plot(f, Y2log(1:length(f)), "r")
 title("Charakterystyka Y w skali decybelowej")
 legend('matlab','własny');
 xlim([1100 1300]);
@@ -95,11 +95,18 @@ w1 = 2/dt * tan(pi*f1/fs);
 w2 = 2/dt * tan(pi*f2/fs);
 
 [bm, an] = butter(4, [w1, w2], 's');
-[z,p,k]  = tf2zp(bm,an);        
+[z,p,k]  = tf2zp(bm,an);    
+[zd,pd,kd] = bilinear(z,p,k,fs);
 
 Ha2    = polyval(bm, j*2*pi*f)./polyval(an, j*2*pi*f);
 Ha2    = Ha2./max(Ha2);
 Ha2log = 20*log10(abs(Ha2));
+
+bm = poly(zd);          
+an = poly(pd);
+Hd2    = kd * polyval(bm, exp(j*2*pi*f/fs))./polyval(an, exp(j*2*pi*f/fs));
+Hd2    = Hd2./max(Hd2);
+Hd2log = 20*log10(abs(Hd2));
 
 figure
 hold on
@@ -107,4 +114,14 @@ plot(f, Halog(1:length(f)), "bo")
 plot(f, Ha2log(1:length(f)), "rx")
 plot([1189 1189], [-70 20], 'k');
 plot([1229 1229], [-70 20], 'k');
+title("Przed prewarpingiem")
+xlim([1100 1300]);
+
+figure
+hold on
+plot(f, Hdlog(1:length(f)), "bo")
+plot(f, Hd2log(1:length(f)), "rx")
+plot([1189 1189], [-70 20], 'k');
+plot([1229 1229], [-70 20], 'k');
+title("Po prewarpingu")
 xlim([1100 1300]);
