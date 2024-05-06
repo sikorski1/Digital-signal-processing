@@ -33,7 +33,6 @@ y = zeros(1,N); e = zeros(1,N); % sygnały wyjściowe z filtra
 bx = zeros(M,1); % bufor na próbki wejściowe x
 h = zeros(M,1); % początkowe (puste) wagi filtru
 for n = 1 : length(x)
-    hold on 
     bx = [ x(n); bx(1:M-1) ]; % pobierz nową próbkę x[n] do bufora
     y(n) = h' * bx; % oblicz y[n] = sum( x .* bx) – filtr FIR
     e(n) = d(n) - y(n); % oblicz e[n]
